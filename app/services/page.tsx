@@ -1,8 +1,14 @@
 "use client";
 
 import { useState } from "react";
+import { useSearchParams } from "next/navigation";
 
-const categories = ["All", "Lash Extensions", "Facial Treatments", "Other Services"];
+const categories = [
+  "All",
+  "Lash Extensions",
+  "Facial Treatments",
+  "Other Services",
+];
 
 const allServices = [
   // Lash extensions (actual menu)
@@ -74,19 +80,18 @@ const allServices = [
   },
 ];
 
-type ServicesPageProps = {
-  searchParams?: {
-    category?: string;
-  };
-};
+export default function ServicesPage() {
+  const searchParams = useSearchParams();
+  const categoryFromQuery = searchParams.get("category");
 
-export default function ServicesPage({ searchParams }: ServicesPageProps) {
   const initialCategoryFromQuery =
-    searchParams?.category && categories.includes(searchParams.category)
-      ? searchParams.category
+    categoryFromQuery && categories.includes(categoryFromQuery)
+      ? categoryFromQuery
       : "Lash Extensions";
 
-  const [activeCategory, setActiveCategory] = useState<string>(initialCategoryFromQuery);
+  const [activeCategory, setActiveCategory] = useState<string>(
+    initialCategoryFromQuery
+  );
 
   const filteredServices =
     activeCategory === "All"
@@ -105,8 +110,9 @@ export default function ServicesPage({ searchParams }: ServicesPageProps) {
             Tailored treatments for effortless beauty.
           </h1>
           <p className="mt-4 text-base leading-relaxed text-[#8a6f5e]">
-            Explore every service we offer, from custom lash sets to relaxing facials,
-            designed to enhance your natural features and fit your lifestyle.
+            Explore every service we offer, from custom lash sets to relaxing
+            facials, designed to enhance your natural features and fit your
+            lifestyle.
           </p>
         </header>
 
@@ -169,12 +175,14 @@ export default function ServicesPage({ searchParams }: ServicesPageProps) {
                 Not sure where to start?
               </h3>
               <p className="mt-3 text-sm leading-relaxed text-[#8a6f5e]">
-                Share your lash goals and skin concerns, and we&apos;ll recommend
-                a treatment plan perfectly tailored to you.
+                Share your lash goals and skin concerns, and we&apos;ll
+                recommend a treatment plan perfectly tailored to you.
               </p>
             </div>
             <div className="space-y-2 text-sm text-[#8a6f5e]">
-              <p>• Consultations are complimentary and take around 10 minutes.</p>
+              <p>
+                • Consultations are complimentary and take around 10 minutes.
+              </p>
               <p>• All services include aftercare guidance for best results.</p>
             </div>
           </aside>
@@ -183,4 +191,3 @@ export default function ServicesPage({ searchParams }: ServicesPageProps) {
     </main>
   );
 }
-

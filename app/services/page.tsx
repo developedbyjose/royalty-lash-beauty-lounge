@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const services = [
   {
     name: "Facial Treatments",
@@ -118,6 +120,60 @@ const lashOptions = [
   },
 ];
 
+// Additional wispy lash options
+lashOptions.push(
+  {
+    name: "WISPY CLASSIC",
+    price: "P499",
+    thickness: "",
+    density: "",
+    notes:
+      "Looking for a wispy style but in a natural way? This is perfect for you! A combination of spiky wispy set with a natural sassy classic lash on its base.",
+    image:
+      "https://images.unsplash.com/photo-1508672019048-805c876b67e2?auto=format&fit=crop&w=600&q=80",
+  },
+  {
+    name: "WISPY MASCARA",
+    price: "P599",
+    thickness: "",
+    density: "",
+    notes:
+      "This is almost the same as the wispy classic but the base of it has 2–3D lashes. If you want a natural wispy but you have thinner lashes, this is the best for you!",
+    image:
+      "https://images.unsplash.com/photo-1508672019048-805c876b67e2?auto=format&fit=crop&w=600&q=80",
+  },
+  {
+    name: "WISPY VOLUME",
+    price: "P799",
+    thickness: "",
+    density: "",
+    notes:
+      "This is suitable for those who are expecting a noticeable false lash look. Made up of alternating lash lengths and great for day and night time!",
+    image:
+      "https://images.unsplash.com/photo-1508672019048-805c876b67e2?auto=format&fit=crop&w=600&q=80",
+  },
+  {
+    name: "WET N' WISPY",
+    price: "P799",
+    thickness: "",
+    density: "",
+    notes:
+      "A combination of spiky wispy set with a natural wet look set. Looking for a natural look with a bit of fullness? This one is the best!",
+    image:
+      "https://images.unsplash.com/photo-1508672019048-805c876b67e2?auto=format&fit=crop&w=600&q=80",
+  },
+  {
+    name: "WISPY MEGA",
+    price: "P1099",
+    thickness: "",
+    density: "",
+    notes:
+      "Are you a Mega Volume girlie? If yes, this is what you are looking for! Its base is made up of mega volume fans but still in a wispy look! Try this one!",
+    image:
+      "https://images.unsplash.com/photo-1508672019048-805c876b67e2?auto=format&fit=crop&w=600&q=80",
+  }
+);
+
 export default async function ServicesPage({
   searchParams,
 }: {
@@ -136,6 +192,8 @@ export default async function ServicesPage({
   } else {
     filteredServices = services;
   }
+
+  // import Link dynamically via next/link usage below
 
   return (
     <main className="min-h-screen bg-[#fbf4ef] px-6 py-16 sm:px-10 lg:px-16">
@@ -204,6 +262,15 @@ export default async function ServicesPage({
               </div>
             </article>
           ))}
+        </div>
+
+        <div className="mt-8 flex justify-center">
+          <Link
+            href="/"
+            className="inline-flex items-center justify-center rounded-full font-semibold transition px-6 py-2.5 text-sm border border-[#d3b49f] bg-white/80 text-[#6f5140] shadow-sm hover:bg-white hover:border-[#c49a85]"
+          >
+            Back to Home
+          </Link>
         </div>
       </div>
     </main>

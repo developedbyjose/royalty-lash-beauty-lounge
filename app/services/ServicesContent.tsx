@@ -184,4 +184,3 @@ export function ServicesContent({ initialCategory }: ServicesContentProps) {
     </main>
   );
 }
-

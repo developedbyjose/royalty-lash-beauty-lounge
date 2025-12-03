@@ -55,6 +55,69 @@ const services = [
   },
 ];
 
+const lashOptions = [
+  {
+    name: "ORDINARY CLASSIC",
+    price: "P379",
+    thickness: "Thickness: 0.15mm–0.20mm",
+    density: "Density: 1:1 lashes",
+    notes:
+      "Normal/Round lashes are used. The fullness of this set will vary upon the fullness of your natural lashes. Not ideal for someone with short or sparse lashes.",
+    image:
+      "https://images.unsplash.com/photo-1508672019048-805c876b67e2?auto=format&fit=crop&w=600&q=80",
+  },
+  {
+    name: "SASSY CLASSIC",
+    price: "P449",
+    thickness: "Thickness: 0.15mm–0.20mm",
+    density: "Density: 1:1 lashes",
+    notes:
+      "Flat lashes with split tips are used, it will look fuller with a more natural finish. Sometimes called “Airy Lashes.” Perfect for everyday look!",
+    image:
+      "https://images.unsplash.com/photo-1508672019048-805c876b67e2?auto=format&fit=crop&w=600&q=80",
+  },
+  {
+    name: "MASCARA LOOK",
+    price: "P499",
+    thickness: "Thickness: 0.07mm–0.10mm",
+    density: "Density: 2–3 lashes on each fan",
+    notes:
+      "A more intense but still natural-looking lashes! It is a semi-volume lash.",
+    image:
+      "https://images.unsplash.com/photo-1508672019048-805c876b67e2?auto=format&fit=crop&w=600&q=80",
+  },
+  {
+    name: "HYBRID",
+    price: "P599",
+    thickness: "Thickness: 0.20, 0.03",
+    density: "Density: 1:1, 4–7:1",
+    notes:
+      "Alternating classic and volume lashes. It will give you a fuller look without the drama. Try this babe!",
+    image:
+      "https://images.unsplash.com/photo-1508672019048-805c876b67e2?auto=format&fit=crop&w=600&q=80",
+  },
+  {
+    name: "VOLUME",
+    price: "P699",
+    thickness: "Thickness: 0.05mm",
+    density: "Density: 4–7 lashes on each fan",
+    notes:
+      "A much finer lashes. It will give you a light dense but fuller than hybrids. This set suits for everyone!",
+    image:
+      "https://images.unsplash.com/photo-1508672019048-805c876b67e2?auto=format&fit=crop&w=600&q=80",
+  },
+  {
+    name: "MEGA VOLUME",
+    price: "P999",
+    thickness: "Thickness: 0.03mm",
+    density: "Density: 7–16 lashes on each fan",
+    notes:
+      "These lashes look incredibly dense and full drama. If you want the fullest and darkest set, this one is the best!",
+    image:
+      "https://images.unsplash.com/photo-1508672019048-805c876b67e2?auto=format&fit=crop&w=600&q=80",
+  },
+];
+
 export default async function ServicesPage({
   searchParams,
 }: {
@@ -63,9 +126,16 @@ export default async function ServicesPage({
   const params = await searchParams;
   const category = params?.category ?? "";
   const categoryLower = category.toLowerCase();
-  const filteredServices = category
-    ? services.filter((s) => s.name.toLowerCase() === categoryLower)
-    : services;
+  let filteredServices;
+  if (category && categoryLower.includes("lash")) {
+    filteredServices = lashOptions;
+  } else if (category) {
+    filteredServices = services.filter(
+      (s) => s.name.toLowerCase() === categoryLower
+    );
+  } else {
+    filteredServices = services;
+  }
 
   return (
     <main className="min-h-screen bg-[#fbf4ef] px-6 py-16 sm:px-10 lg:px-16">
@@ -101,18 +171,28 @@ export default async function ServicesPage({
                   <h2 className="font-heading text-xl font-semibold text-[#3f2a1e]">
                     {service.name}
                   </h2>
-                  <div className="mt-2 flex items-center gap-2 text-sm text-[#9a7b67]">
-                    <span className="text-base">⏱</span>
-                    <span>{service.duration}</span>
-                    <span className="text-[#d9c2b5]">•</span>
-                    <span className="font-semibold text-[#d47b34]">
-                      {service.price}
-                    </span>
-                  </div>
+                  {"thickness" in service ? (
+                    <div className="mt-2 text-sm text-[#9a7b67]">
+                      <div>{service.thickness}</div>
+                      <div className="mt-1">{service.density}</div>
+                      <div className="mt-2 font-semibold text-[#d47b34]">
+                        {service.price}
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="mt-2 flex items-center gap-2 text-sm text-[#9a7b67]">
+                      <span className="text-base">⏱</span>
+                      <span>{service.duration}</span>
+                      <span className="text-[#d9c2b5]">•</span>
+                      <span className="font-semibold text-[#d47b34]">
+                        {service.price}
+                      </span>
+                    </div>
+                  )}
                 </div>
 
                 <p className="text-sm leading-relaxed text-[#8a6f5e]">
-                  {service.description}
+                  {"notes" in service ? service.notes : service.description}
                 </p>
 
                 <button

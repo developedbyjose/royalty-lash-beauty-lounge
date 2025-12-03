@@ -55,7 +55,17 @@ const services = [
   },
 ];
 
-export default function ServicesPage() {
+export default function ServicesPage({
+  searchParams,
+}: {
+  searchParams?: { category?: string };
+}) {
+  const category = searchParams?.category ?? "";
+  const categoryLower = category.toLowerCase();
+  const filteredServices = category
+    ? services.filter((s) => s.name.toLowerCase() === categoryLower)
+    : services;
+
   return (
     <main className="min-h-screen bg-[#fbf4ef] px-6 py-16 sm:px-10 lg:px-16">
       <div className="mx-auto max-w-6xl">
@@ -64,12 +74,14 @@ export default function ServicesPage() {
             Our Services
           </p>
           <h1 className="mt-3 font-heading text-3xl font-semibold tracking-tight text-[#3f2a1e] sm:text-4xl">
-            Premium lash extensions tailored to enhance your natural beauty. ♡
+            {category
+              ? `${category} Services`
+              : "Premium lash extensions tailored to enhance your natural beauty. ♡"}
           </h1>
         </div>
 
         <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {services.map((service) => (
+          {filteredServices.map((service) => (
             <article
               key={service.name}
               className="flex h-full flex-col overflow-hidden rounded-[28px] bg-white shadow-[0_18px_45px_rgba(210,166,140,0.18)] ring-1 ring-[#f4ddd0]"

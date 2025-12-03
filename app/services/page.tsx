@@ -55,12 +55,13 @@ const services = [
   },
 ];
 
-export default function ServicesPage({
+export default async function ServicesPage({
   searchParams,
 }: {
-  searchParams?: { category?: string };
+  searchParams?: Promise<{ category?: string }>;
 }) {
-  const category = searchParams?.category ?? "";
+  const params = await searchParams;
+  const category = params?.category ?? "";
   const categoryLower = category.toLowerCase();
   const filteredServices = category
     ? services.filter((s) => s.name.toLowerCase() === categoryLower)

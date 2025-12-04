@@ -25,7 +25,7 @@ const allServices = [
     duration: "90 min",
     price: "PHP 449.00",
     description:
-      "Thickness: 0.15mm–0.20mm · Density: 1:1 lashes. Flat lashes with split tips for a fuller but still natural finish. Also called "Airy Lashes." Perfect for an everyday look.",
+      "Thickness: 0.15mm–0.20mm · Density: 1:1 lashes. Flat lashes with split tips for a fuller but still natural finish. Also called \"Airy Lashes.\" Perfect for an everyday look.",
   },
   {
     category: "Lash Extensions",
